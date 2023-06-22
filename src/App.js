@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+
 import './App.css';
+import useApi from './useApi';
+import Shop from './Shop';
+
+
+import React, { useState } from 'react'
+
 
 function App() {
+  
+  const [page, setPage] = React.useState(10);
+  const url = "https://jsonplaceholder.typicode.com/posts";
+  const { data, isLoading } = useApi(url);
+  
+
+
+  const htmlUseApi = <>
+                      {isLoading && 'Loading…'}
+                      <button onClick={() => setPage((p) => p + 1)}>Next</button>
+                      <ul>
+                        {data?.map((el) => (
+                            <li key={el.id}>{el.title}</li>
+                          ))}
+                      </ul>
+                    </>;
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* {htmlUseApi} */}
+      <Shop/>
+    </>
   );
 }
 
-export default App;
+export default App
+

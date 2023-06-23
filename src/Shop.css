@@ -29,3 +29,11 @@ li{
 ul{
     background-color: rgb(161, 177, 177);
 }
+.cart{
+    padding:10px;
+    border-radius: 5px;
+}
+.list{
+    padding:10px;
+    border-radius: 5px;
+}

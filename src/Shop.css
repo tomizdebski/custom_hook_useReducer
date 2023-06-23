@@ -1,0 +1,31 @@
+.shop-container{
+    background: grey;
+    text-align:justify;
+    border-radius: 10px;
+    width: 500px;
+    padding:20px;
+    
+}
+
+.list__btn-add{
+    background: yellow;
+    color:blueviolet;
+    border-radius: 5px;
+}
+
+.cart__btn-remove{
+    background-color: brown;
+    color: white;
+    border-radius:5px;
+    width: 120px;
+}
+
+li{
+   list-style-type: none; 
+   display: flex;
+   justify-content: space-between;
+}
+
+ul{
+    background-color: rgb(161, 177, 177);
+}

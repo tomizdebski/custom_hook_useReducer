@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-
+import "./Shop.css"
 
 ////reducer
 
@@ -12,12 +12,13 @@ function reducer(state, action){
     if(itemInCart) {
         console.log(action.payload.id)
         const tempArray = state;
-        tempArray[action.payload.id].count ++;
+        tempArray[action.payload.id].count+=1;
 
         console.log('temp',tempArray);
         return state
     };
     if(!itemInCart) return [...state, action.payload];
+    return
 
     case "REMOVE_ITEM": return state.filter((item) => item.name !== action.payload);
 
@@ -49,42 +50,64 @@ const removeItems = () => {
     }
 }
 
+const items=[
+    {
+        name: "Słonecznik",
+        id: 0,
+        count: 1,
+        price: 10
+    },
+    {
+        name: "Ziemniak",
+        id: 1,
+        count: 1,
+        price: 20
+    },
+    {
+        name: "Banany",
+        id: 2,
+        count: 1,
+        price: 20
+    },
 
+];
 
 function Shop() {
 
-    const items=[
-        {
-            name: "Słonecznik",
-            id: 0,
-            count: 1,
-            price: 10
-        },
-        {
-            name: "Ziemniak",
-            id: 1,
-            count: 2,
-            price: 20
-        }
-    ];
-    
-
     const [state, dispatch] = useReducer(reducer, []);
+    console.log(state);
     
-
-
-
-
-
     return (
-        <>
+        <div className="shop-container">
         <h1>Shop</h1>
-        <button onClick={() => dispatch(add(items[0]))}> Dodaj Słonecznik</button>
-        <button onClick={() => dispatch(add(items[1]))}> Dodaj Ziemniak</button>
-        <button onClick={() => dispatch(removeItems())}> Kasuj wszystkie</button>
-        <button onClick={() => dispatch(remove("Słonecznik"))}> Kasuj slonecznik</button>
-        <button onClick={() => dispatch(remove("Ziemniak"))}> Kasuj ziemniak</button>
-        </>
+        <div className="list-container">
+            <ul className="list">
+                {items.map((el, index )=> <li key={el.id}>{el.name}
+                <button className="list__btn-add" onClick={() => dispatch(add(items[index]))}>
+                    Dodaj
+                </button>
+                </li>)}
+            </ul>
+            
+
+        </div>
+        
+        
+        <h2>Mój koszyk:</h2>
+            <div className="shopping-cart-container">
+                <ul className="cart">
+                    {state?.map(({name, id, count, price}, index) => {
+                        return(
+                            <li key={id}>{name} sztuk: {count} cena: {price} PLN
+                                 <button className="cart__btn-remove" onClick={() => dispatch(remove(name))}> Kasuj {name}</button>
+                            </li>
+                        )
+                    })}
+                </ul>
+                {(state.length > 0)?<button className="cart__btn-remove"onClick={() => dispatch(removeItems())}>Kasuj wszystko!!!</button>:null}
+            </div>
+
+        </div>
     )
 }
 
